@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+
+<meta charset=utf-8>
+    <title>Tierra En Three.js</title>
+    <style>
+canvas {
+  background-color: black;
+  position: relative;
+}
+.texto {display: block;
+    position: absolute;
+    z-index: 1000;
+    left: 2%;
+    color: white;
+    font-family: sans-serif;}
+    </style>
+</head>
+<body>
+<div class="texto">
+<h1>Earth Exercise</h1>
+<h4>Three.Js library<br>Laura Pinilla</h4>
+</div>
+<div id="container"></div>
+    <script>
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1,1000);
+
+renderer = new THREE.WebGLRenderer({ antialias: false, alpha:true });
+renderer.setSize (window.innerWidth - 20, window.innerHeight - 20);
+document.body.appendChild(renderer.domElement);
+
+var shape = new THREE.SphereGeometry(12, 30, 30);
+var texture = new THREE.TextureLoader().load( '../3js/tierra.jpg' );
+var material = new THREE.MeshBasicMaterial( { map: texture } );
+//var material = new THREE.MeshBasicMaterial ({color: 0x0011ff});
+var tierra = new THREE.Mesh(shape, material);
+var texture2 = new THREE.TextureLoader().load( "../3js/stars2.jpeg" );
+scene.background = texture2;
+scene.add(tierra);
+camera.position.z= 35;
+
+
+function render(){
+
+  requestAnimationFrame (render);
+  tierra.rotation.x += 0.005;
+	tierra.rotation.y += 0.005;
+  renderer.render (scene, camera);
+}
+render();
+    </script>
+</body>
+</html>
